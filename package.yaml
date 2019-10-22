@@ -25,6 +25,7 @@ dependencies:
 library:
   source-dirs: src
   dependencies:
+    - text
     - aeson >= 1.4.5.0
 
 tests:
