@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE OverloadedStrings #-}
-module Data.OpenAPI.Types where
+module Data.OpenAPI.Types
+  ( OpenAPI
+  , Info
+  ) where
 
 import GHC.Generics
+import Data.Aeson
 
 import qualified Data.Text as T
 
@@ -14,3 +18,7 @@ data Info = Info {
   title       :: T.Text,
   description :: Maybe T.Text
 } deriving (Generic, Show)
+
+instance ToJSON Info where
+    toEncoding = genericToEncoding defaultOptions
+instance FromJSON Info
