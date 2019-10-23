@@ -1,5 +1,6 @@
 module Data.OpenAPI
   ( readOpenAPI
+  , main
   ) where
 
 import           Data.Aeson            (FromJSON, eitherDecode)
@@ -11,6 +12,6 @@ readOpenAPI path = eitherDecode <$> B.readFile path
 
 main :: IO ()
 main = do
-    result <- readOpenAPI "test/fixtures/info.json" :: IO (Either String Info)
+    result <- readOpenAPI "test/fixtures/path_item.json" :: IO (Either String PathItem)
     putStrLn . show $ result
     return ()
