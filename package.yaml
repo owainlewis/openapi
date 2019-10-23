@@ -1,15 +1,13 @@
 name:                openapi
 version:             0.1.0.0
-github:              "githubuser/openapi"
+github:              "owainlewis/openapi"
 license:             BSD3
-author:              "Author name here"
-maintainer:          "example@example.com"
-copyright:           "2019 Author name here"
+author:              "Owain Lewis"
+maintainer:          "owain@owainlewis.com"
+copyright:           "2019 Owain Lewis"
 
 extra-source-files:
 - README.md
-- ChangeLog.md
-
 # Metadata used when publishing your package
 # synopsis:            Short description of your package
 # category:            Web
