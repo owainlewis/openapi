@@ -6,9 +6,9 @@ import           Data.Text
 import           Test.Hspec
 
 -- Utility for making tests simpler to write using mandatory values
-expectParse :: (Show a1, Show b, Eq a1, Eq b)
-  => (a2 -> b)
-  -> Either a1 a2
+expectParse :: (Show a, Show b, Eq a, Eq b)
+  => (c -> b)
+  -> Either a c
   -> b
   -> Expectation
 expectParse f r e = (f <$> r) `shouldBe` Right(e)
