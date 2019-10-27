@@ -1,17 +1,16 @@
 module Data.OpenAPI
-  ( readOpenAPI
-  , main
+  ( decodeFileAs
   ) where
 
 import           Data.Aeson            (FromJSON, eitherDecode)
 import qualified Data.ByteString.Lazy  as B
 import           Data.OpenAPI.V3.Types
 
-readOpenAPI :: FromJSON a => FilePath -> IO (Either String a)
-readOpenAPI path = eitherDecode <$> B.readFile path
+decodeFileAs :: FromJSON a => FilePath -> IO (Either String a)
+decodeFileAs path = eitherDecode <$> B.readFile path
 
 main :: IO ()
 main = do
-    result <- readOpenAPI "test/fixtures/path_item.json" :: IO (Either String PathItem)
+    result <- decodeFileAs "test/fixtures/path_item.json" :: IO (Either String PathItem)
     putStrLn . show $ result
     return ()
