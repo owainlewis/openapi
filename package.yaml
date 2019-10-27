@@ -19,6 +19,7 @@ library:
     - text
     - bytestring
     - aeson >= 1.4.5.0
+    - lens >= 4.17.1
 
 tests:
   openapi-test:
@@ -31,4 +32,5 @@ tests:
     dependencies:
     - openapi
     - hspec
+    - text
     - QuickCheck
