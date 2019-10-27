@@ -14,6 +14,11 @@ expectParse :: (Show a1, Show b, Eq a1, Eq b)
 expectParse f r e = (f <$> r) `shouldBe` Right(e)
 
 -- Utility for making tests simpler to write using optional values
+expectParseMaybe :: (Show a, Show b, Eq a, Eq b)
+  => (c -> Maybe b)
+  -> Either a c
+  -> b
+  -> Expectation
 expectParseMaybe f r e = (f <$> r) `shouldBe` (Right. Just $ e)
 
 main :: IO ()
