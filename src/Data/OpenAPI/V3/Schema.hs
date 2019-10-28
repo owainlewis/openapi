@@ -8,8 +8,12 @@ import           Data.Data    (Data (..), Typeable)
 import           Data.Text    (Text)
 import           GHC.Generics
 
-data Info = Info
-  { _infoTitle          :: Text
+data OpenAPI = OpenAPI {
+  _openAPI :: Text
+  } deriving (Eq, Show, Generic, Data, Typeable)
+
+data Info = Info {
+    _infoTitle          :: Text
   , _infoDescription    :: Maybe Text
   , _infoTermsOfService :: Maybe Text
   , _infoContact        :: Maybe Contact
@@ -17,14 +21,13 @@ data Info = Info
   , _infoVersion        :: Text
   } deriving (Eq, Show, Generic, Data, Typeable)
 
-data Contact = Contact
-  { _contactName  :: Maybe Text
+data Contact = Contact {
+    _contactName  :: Maybe Text
   , _contactUrl   :: Maybe Text
   , _contactEmail :: Maybe Text
   } deriving (Eq, Show, Generic, Data, Typeable)
 
-data License = License
-  {
+data License = License {
     _licenseName :: Text
   , _licenseUrl  :: Maybe Text
   } deriving (Eq, Show, Generic, Data, Typeable)
@@ -36,8 +39,18 @@ data License = License
 instance ToJSON Contact where
   toEncoding = genericToEncoding defaultOptions
 
+instance ToJSON License where
+  toEncoding = genericToEncoding defaultOptions
+
+instance ToJSON Info where
+  toEncoding = genericToEncoding defaultOptions
+
 -- =======================================================================
 -- Generic FromJSON instances
 -- =======================================================================
 
 instance FromJSON Contact
+
+instance FromJSON License
+
+instance FromJSON Info
