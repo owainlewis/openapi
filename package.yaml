@@ -17,6 +17,7 @@ library:
   source-dirs: src
   dependencies:
     - text
+    - containers >= 0.6.0.1
     - bytestring
     - aeson >= 1.4.5.0
     - lens >= 4.17.1

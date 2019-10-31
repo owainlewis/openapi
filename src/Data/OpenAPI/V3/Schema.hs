@@ -5,13 +5,20 @@ module Data.OpenAPI.V3.Schema where
 
 import           Data.Aeson
 import           Data.Data    (Data (..), Typeable)
+import           Data.Map     (Map)
+import qualified Data.Map     as Map
 import           Data.Text    (Text)
 import           GHC.Generics
 
+-- This is the root document object of the OpenAPI document.
 data OpenAPI = OpenAPI {
-  _openAPI :: Text
+    _openAPI :: Text
+  , _info    :: Info
   } deriving (Eq, Show, Generic, Data, Typeable)
 
+-- The object provides metadata about the API.
+-- The metadata MAY be used by the clients if needed, and MAY be presented in
+-- editing or documentation generation tools for convenience.
 data Info = Info {
     _infoTitle          :: Text
   , _infoDescription    :: Maybe Text
@@ -32,6 +39,19 @@ data License = License {
   , _licenseUrl  :: Maybe Text
   } deriving (Eq, Show, Generic, Data, Typeable)
 
+-- An object representing a Server.
+data Server = Server {
+    _serverUrl         :: Text
+  , _serverDescription :: Maybe Text
+  , _serverVariables   :: Map Text ServerVariable
+  } deriving (Eq, Show, Generic, Data, Typeable)
+
+data ServerVariable = ServerVariable {
+    _serverVariableEnum        :: [Text]
+  , _serverVariableDefault     :: Text
+  , _serverVariableDescription :: Maybe Text
+  } deriving (Eq, Show, Generic, Data, Typeable)
+
 -- =======================================================================
 -- Generic ToJSON instances
 -- =======================================================================
@@ -50,7 +70,5 @@ instance ToJSON Info where
 -- =======================================================================
 
 instance FromJSON Contact
-
 instance FromJSON License
-
 instance FromJSON Info
