@@ -12,5 +12,5 @@ decodeFileAs path = eitherDecode <$> B.readFile path
 
 main :: IO ()
 main = do
-    result <- decodeFileAs "test/fixtures/info.json" :: IO (Either String Info)
-    putStrLn . show $ _infoTitle <$> result
+    result <- decodeFileAs "test/fixtures/petstore.json" :: IO (Either String OpenAPI)
+    putStrLn . show $ result

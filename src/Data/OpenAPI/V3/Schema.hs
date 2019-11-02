@@ -4,6 +4,7 @@
 module Data.OpenAPI.V3.Schema where
 
 import           Data.Aeson
+import           Data.Char    (isUpper, toLower)
 import           Data.Data    (Data (..), Typeable)
 import           Data.Map     (Map)
 import qualified Data.Map     as Map
@@ -52,6 +53,8 @@ data ServerVariable = ServerVariable {
   , _serverVariableDescription :: Maybe Text
   } deriving (Eq, Show, Generic, Data, Typeable)
 
+newtype URL = URL { getUrl :: Text } deriving (Eq, Ord, Show, Generic, Data, Typeable)
+
 -- =======================================================================
 -- Generic ToJSON instances
 -- =======================================================================
@@ -69,6 +72,21 @@ instance ToJSON Info where
 -- Generic FromJSON instances
 -- =======================================================================
 
+jsonPrefix :: String -> Options
+jsonPrefix prefix = defaultOptions {
+    fieldLabelModifier      = modifier . drop 1
+  , constructorTagModifier  = modifier
+  , sumEncoding             = ObjectWithSingleField
+  , omitNothingFields       = True
+  }
+  where
+    modifier = lowerFirstUppers . drop (length prefix)
+    lowerFirstUppers s = map toLower x ++ y
+      where (x, y) = span isUpper s
+
 instance FromJSON Contact
+  parseJSON = genericParseJSON (jsonPrefix "Contact")
 instance FromJSON License
-instance FromJSON Info
+  parseJSON = genericParseJSON (jsonPrefix "License")
+instance FromJSON Info where
+  parseJSON = genericParseJSON (jsonPrefix "Info")
